@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, useRadioGroup } from "@mui/material";
 import Cell from "./Cell";
 interface CellData {
   id: number;
@@ -18,27 +18,36 @@ const cellsInitial: CellData[] = [
 ];
 function Board() {
   const [cells, setCells] = useState<CellData[]>(cellsInitial);
-  const [user, setUser] = useState<"X" | "O">("X");
+  const [xIsNext, setXIsNext] = useState<boolean>(true);
   const handleChange = (id: number) => {
-    setCells(
-      cells.map(item =>
-        item.id === id ? { ...item, user: user === null ? user : user === "X" ? "O" : "X" } : item
-      )
-    );
+    const newCells: CellData[] = cells.map(item => {
+      const nextVal =
+        !item.user && xIsNext ? "X" : item.user === "X" && !xIsNext ? "O" : "X";
+      const nextObj =
+        item.id === id
+          ? {
+              ...item,
+              user: nextVal,
+            }
+          : item;
+      console.log(nextObj);
+      return nextObj;
+    });
+
+    setCells(newCells);
+    const nextVal = newCells.find(item => item.id === id)?.user || "";
+    setXIsNext(nextVal !== "X");
   };
-  useEffect(() => {
-    setUser(user === "X" ? "O" : "X");
-  }, [cells]);
-  console.log(user);
-  console.log(cells);
+
+  console.log({ xIsNext });
   return (
     <Grid container sx={{ minHeight: "100%" }}>
-      {cells.map(item => (
-        <Grid key={item.id} item sx={{ border: 1 }} xs={4}>
+      {cells.map(cell => (
+        <Grid item key={cell.id} sx={{ border: 1 }} xs={4}>
           <Button
             sx={{ color: "black", width: "100%", height: "100%" }}
-            onClick={() => handleChange(item.id)}>
-            <Cell currentUser={item.user} id={item.id}></Cell>
+            onClick={() => handleChange(cell.id)}>
+            <Cell currentUser={cell.user} id={cell.id}></Cell>
           </Button>
         </Grid>
       ))}
