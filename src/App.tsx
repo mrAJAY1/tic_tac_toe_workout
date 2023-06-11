@@ -2,9 +2,22 @@ import { useState } from "react";
 import "./App.css";
 import { Paper, Stack, Typography } from "@mui/material";
 import Board from "./components/Board";
+import { CellData } from "./components/types";
+
+const cellsInitial: CellData[] = [
+  { id: 0, user: null },
+  { id: 1, user: null },
+  { id: 2, user: null },
+  { id: 3, user: null },
+  { id: 4, user: null },
+  { id: 5, user: null },
+  { id: 6, user: null },
+  { id: 7, user: null },
+  { id: 8, user: null },
+];
 
 function App() {
-  const [currentPlayer, setCurrentPlayer] = useState<string | null>(null);
+  const [cells, setCells] = useState<CellData[]>(cellsInitial);
 
   return (
     <Stack width="100%" height="100%" justifyContent="center" alignItems="center">
@@ -12,7 +25,7 @@ function App() {
         Tic Tac Toe
       </Typography>
       <Paper sx={{ width: { xs: 300, sm: 380 }, height: { xs: 300, sm: 380 }, p: 2, mt: 10 }}>
-        <Board />
+        <Board cells={cells} setCells={setCells}/>
       </Paper>
     </Stack>
   );
