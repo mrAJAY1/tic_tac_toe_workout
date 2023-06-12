@@ -15,7 +15,7 @@ const cellsInitial: CellData[] = [
   { id: 7, user: null },
   { id: 8, user: null },
 ];
-const winnerArray = [[0,1,2],[0,3,6],[0,4,8],[1,4,7]]
+const winnerArray = [[0,1,2],[0,3,6],[0,4,8],[1,4,7],[2,5,8],[3,4,5],[6,7,8]]
 function App() {
   const [cells, setCells] = useState<CellData[]>(cellsInitial);
   return (
