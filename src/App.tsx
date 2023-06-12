@@ -15,10 +15,9 @@ const cellsInitial: CellData[] = [
   { id: 7, user: null },
   { id: 8, user: null },
 ];
-
+const winnerArray = [[0,1,2],[0,3,6],[0,4,8],[1,4,7]]
 function App() {
   const [cells, setCells] = useState<CellData[]>(cellsInitial);
-
   return (
     <Stack width="100%" height="100%" justifyContent="center" alignItems="center">
       <Typography variant="h3" mt={3} sx={{ textDecoration: "underline", textAlign: "center" }}>
