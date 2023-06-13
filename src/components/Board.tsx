@@ -5,10 +5,9 @@ import { CellData } from "./types";
 interface PropType {
   cells: CellData[];
   setCells: React.Dispatch<React.SetStateAction<CellData[]>>;
-  winner: string | null;
 }
 function Board(props: PropType) {
-  const { cells, setCells, winner } = props;
+  const { cells, setCells } = props;
   const [xIsNext, setXIsNext] = useState<boolean>(true);
   const handleChange = (id: number) => {
     const newCells: CellData[] = cells.map(item => {
