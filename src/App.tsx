@@ -3,6 +3,7 @@ import "./App.css";
 import { Paper, Stack, Typography } from "@mui/material";
 import Board from "./components/Board";
 import { CellData } from "./components/types";
+import WinnerPortal from "./components/WinnerPortal";
 
 const cellsInitial: CellData[] = [
   { id: 0, user: null },
@@ -42,12 +43,15 @@ function App() {
   useEffect(() => {
     if (!winner) checkForWinner();
     else {
-      setCells(cellsInitial);
-      setWinner(null);
+      setTimeout(() => {
+        setWinner(null);
+        setCells(cellsInitial);
+      }, 3000);
     }
   }, [cells, winner]);
   return (
     <Stack width="100%" height="100%" justifyContent="center" alignItems="center">
+      {winner && <WinnerPortal winner={winner} />}
       <Typography variant="h3" mt={3} sx={{ textDecoration: "underline", textAlign: "center" }}>
         Tic Tac Toe
       </Typography>
