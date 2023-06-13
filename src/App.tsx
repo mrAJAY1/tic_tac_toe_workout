@@ -28,21 +28,23 @@ const winnerArray = [
 function App() {
   const [cells, setCells] = useState<CellData[]>(cellsInitial);
   const [winner, setWinner] = useState<string | null>(null);
-
+  const checkForWinner = () => {
+    winnerArray.forEach(combo => {
+      const [a, b, c] = combo;
+      const cellA = cells[a];
+      const cellB = cells[b];
+      const cellC = cells[c];
+      if (cellA.user && cellA.user === cellB.user && cellB.user === cellC.user) {
+        setWinner(cellA.user);
+      }
+    });
+  };
   useEffect(() => {
-    const checkForWinner = () => {
-      winnerArray.forEach(combo => {
-        const [a, b, c] = combo;
-        const cellA = cells[a];
-        const cellB = cells[b];
-        const cellC = cells[c];
-        if (cellA.user && cellA.user === cellB.user && cellB.user === cellC.user) {
-          setWinner(cellA.user);
-        }
-      });
-    };
     if (!winner) checkForWinner();
-    else alert(`the winner is ${winner}`);
+    else {
+      setCells(cellsInitial);
+      setWinner(null);
+    }
   }, [cells, winner]);
   return (
     <Stack width="100%" height="100%" justifyContent="center" alignItems="center">
@@ -50,7 +52,7 @@ function App() {
         Tic Tac Toe
       </Typography>
       <Paper sx={{ width: { xs: 300, sm: 380 }, height: { xs: 300, sm: 380 }, p: 2, mt: 10 }}>
-        <Board cells={cells} setCells={setCells} />
+        <Board cells={cells} setCells={setCells} winner={winner} />
       </Paper>
     </Stack>
   );
