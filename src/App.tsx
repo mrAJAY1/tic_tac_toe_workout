@@ -56,7 +56,7 @@ function App() {
         Tic Tac Toe
       </Typography>
       <Paper sx={{ width: { xs: 300, sm: 380 }, height: { xs: 300, sm: 380 }, p: 2, mt: 10 }}>
-        <Board cells={cells} setCells={setCells} winner={winner} />
+        <Board cells={cells} setCells={setCells} />
       </Paper>
     </Stack>
   );
