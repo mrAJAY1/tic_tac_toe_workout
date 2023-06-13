@@ -22,21 +22,26 @@ const winnerArray = [
   [0, 4, 8],
   [1, 4, 7],
   [2, 5, 8],
+  [2, 4, 6],
   [3, 4, 5],
   [6, 7, 8],
 ];
 
 function App() {
   const [cells, setCells] = useState<CellData[]>(cellsInitial);
-  const [winner, setWinner] = useState<string | null>(null);
+  const [winner, setWinner] = useState<"X" | "O" | "N" | null>(null);
   const checkForWinner = () => {
-    winnerArray.forEach(combo => {
+    let count = 0;
+    winnerArray.forEach((combo) => {
       const [a, b, c] = combo;
       const cellA = cells[a];
       const cellB = cells[b];
       const cellC = cells[c];
       if (cellA.user && cellA.user === cellB.user && cellB.user === cellC.user) {
         setWinner(cellA.user);
+      } else if (cellA.user && cellB.user && cellC.user) {
+        count++;
+        if (count === winnerArray.length - 1) setWinner("N");
       }
     });
   };
