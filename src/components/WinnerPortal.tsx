@@ -30,7 +30,7 @@ function WinnerPortal(props: PropsType) {
           justifyContent: "center",
           alignItems: "center",
         }}>
-        <h2>{winner} wins!</h2>
+        <h2>{winner === "N" ? "No one" : winner} wins!</h2>
       </Box>
     </Box>,
     document.body
